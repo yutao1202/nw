@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>乐点互联-人脸识别</title>
+<style>
+	body { background: #eee; margin: 0; padding: 0; font-family: "Microsoft YaHei UI"; font-size: 10pt; overflow: hidden;}
+	#toolbar {height: 30px;line-height: 30px;background: #000;color:#fff;/*-webkit-app-region: drag;*/letter-spacing:1px;}
+	#toolbar, #close,button {cursor: pointer;}
+	#container {width:100%;margin: 0 auto;}
+	#container header {color:#999;text-align: center;margin: 0 auto;padding: 10px 0 0px 0px;}
+	#chat-list {margin: 20px 0;padding: 0 50px;}
+	#chat-list .title{color:#666 }
+	#chat-list label{color:#a8a8a8;}
+	#chat-list input:focus{border-color: aqua}
+	/* 尾部 */
+	#container footer {position:fixed;text-align: center;border-top:1px solid #ccc;padding-top: 9px;width:100%;line-height: 30px; height: 30px;margin:0;
+		 display: inline-block;z-index:999;left:0px;top:505px;clear: both}
+	::-webkit-scrollbar { width: 4px;}
+	::-webkit-scrollbar-track { background: rgba(0,0,0,0);}
+	::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.5); border-radius: 2px;}
+	#close{-webkit-transition: all .3s}
+	#close:hover{-webkit-transform: scale(1.2,1.2);}
+	select{height:30px;padding:2px;border-radius: 5px;border:1px solid #ccc;margin-right: 12px;min-width: 130px}
+	input{height:25px;padding:2px;border-radius: 5px;border:1px solid #ccc;margin-right: 12px}
+	.btn{border-radius: 5px;background-color: crimson;height: 32px;border:none;color: #fff;font-size: 11pt;letter-spacing: 8px;text-align: center}
+	button:active{background-color:salmon !important;}
+</style>
+</head>
+<body>
+
+    <header id="toolbar">
+		<img src="icon.png" style="position: relative;left:6px;top:3px;padding-right: 10px"/>人脸识别
+		<img id="close" src="close.png" style="position: absolute;top:0px;right: 0px;z-index: 999;outline: none" onclick="closeWin()"/>
+	</header>
+	<div id="container">
+		<input id="userId" type="hidden"/>
+		<input id="faceImg" type="hidden"/>
+		<input id="faceFeature" type="hidden"/>
+        <header>
+		 		<div id="message"></div>
+			<form style="text-align: left">
+				<fieldset style="border: 1px solid #DBDBDB;margin:0px auto;width:730px">
+					<legend>查询条件</legend>
+					小区: <select id="community" oninput="DoServerHander.inputCommunity()"></select>
+					楼栋: <select name="build" id="build" oninput="DoServerHander.inputBuild()"></select>
+					单元: <select name="unit" id="unit" oninput="DoServerHander.inputUnit()"></select>
+					房间: <select  name="room" id="room"></select>
+					 <br/>
+					<p>	手机号: <input id="tel" type="tel"/>
+						身份证: <input id="idnum" type="text" value="421121198710071411"/>
+						<button type="button" class="btn" style="position:relative;top:0px;left:20px;background-color: crimson;width: 80px" onclick="DoServerHander.search()">查询</button>
+					</p>
+				</fieldset>
+			</form>
+        </header>
+
+        <div id="chat-list">
+            <div style="width:200px;float:left; line-height: 400px; height: 400px;">
+                <div id="tip" style="width:300px;border-top-left-radius:8px;border-bottom-left-radius:8px;margin-top: 22px; background-color: crimson;color: #fff; text-align: center; line-height: 32px;height: 32px">点击图片进行人脸采集</div>
+				<img id="img" src="timg.gif" width="300" height="200" style="border-top-left-radius:8px;border-bottom-left-radius:8px;margin-top: 0px;cursor: pointer" onclick="takePhoto()"/>
+			</div>
+			<div style="margin-left: 300px;background: rgba(255,255,255,0.8);border-top-right-radius:8px;border-bottom-right-radius:8px;height: 300px;">
+				<form style="width:80%;height:98%;margin:0px auto;padding-top: 20px">
+					<input id="id" type="hidden"/>
+					<p>
+					<label class="title">姓名</label><br/>
+						<label id="realName">未查询到数据</label>
+					</p>
+					<p>
+						<label class="title">手机号</label><br/>
+						<label id="cellphone">未查询到数据</label>
+					</p>
+					<p>
+						<label class="title">身份证</label><br/>
+						<label id="idCard">未查询到数据</label>
+					</p>
+					<p>
+						<label class="title">房产信息</label><br/>
+						<label id="fc">未查询到数据</label>
+					</p>
+					<p><button class="btn" type="button" style="position:relative;top:15px;background-color: crimson;width: 98%; " onclick="DoServerHander.saveData()">保&nbsp;存</button></p>
+				</form>
+			</div>
+        </div>
+
+        <footer>
+			版权所有 深圳市乐点互联有限公司
+        </footer>
+    </div>
+	<!--<script src="jquery.min.js"></script>-->
+	<script>function getDomOBJ(id){return document.getElementById(id)} function getSelectValue(id){let myselect = getDomOBJ(id);var index=myselect.selectedIndex;var opt=myselect.options[index];return {'text':opt.text,'value':opt.value};}</script>
+	<script src="index.js"></script>
+</body>
+</html>

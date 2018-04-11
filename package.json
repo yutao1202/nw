@@ -1,0 +1,17 @@
+{
+  "main": "index.html",
+  "name": "ga",
+  "window": {
+    "toolbar": true,
+    "frame": false,
+    "width": 768,
+    "height": 550,
+    "resizable": false
+  },
+  "dependencies": {
+  },
+  "permissions": [
+    "serial",
+    "usb"
+  ]
+}
